@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Hey Beans! — found on reels, saved properly</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ════════ HEY BEANS! DESIGN TOKENS ════════
+   8pt spacing · 2-color system: #002A8D + white,
+   one supporting cream for warmth (per reference) */
+:root{
+  --blue:#002A8D;
+  --blue-deep:#001E66;
+  --blue-tint:#E9EEFB;
+  --paper:#FFFFFF;
+  --cream:#F6F2E9;          /* soft support tone */
+  --cream-deep:#EDE6D6;
+  --ink:#10173A;
+  --mut:#5A618A;
+  --line:#E4E1D5;
+  --line-blue:#D8E0F5;
+  --r-lg:24px; --r-md:18px; --r-sm:12px;
+  --s1:8px; --s2:16px; --s3:24px; --s4:32px; --s5:40px;
+  --shadow:0 12px 32px rgba(0,30,102,.10);
+  --top:64px;
+  --disp:'Bricolage Grotesque',sans-serif;
+  --body:'Schibsted Grotesk',system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{
+  font-family:var(--body);color:var(--ink);
+  background:
+    radial-gradient(1000px 520px at 85% -5%, #DCE5FB 0%, transparent 55%),
+    radial-gradient(900px 520px at 0% 105%, #F1EADA 0%, transparent 55%),
+    #F7F6F1;
+  display:flex;align-items:center;justify-content:center;min-height:100vh;padding:28px 16px;
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* ── phone ── */
+.stage{display:flex;gap:52px;align-items:center;flex-wrap:wrap;justify-content:center}
+.phone{width:392px;max-width:100%;height:820px;max-height:92vh;background:var(--paper);border-radius:48px;
+  box-shadow:0 34px 90px rgba(0,30,102,.25),0 0 0 10px #10173A,0 0 0 12px #2c3566;
+  position:relative;overflow:hidden;display:flex;flex-direction:column}
+.notch{position:absolute;top:12px;left:50%;transform:translateX(-50%);width:120px;height:27px;background:#10173A;border-radius:14px;z-index:90}
+.swrap{flex:1;overflow:hidden;position:relative}
+.scr{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;padding:var(--top) 20px 112px;display:none;background:var(--paper);scrollbar-width:none}
+.scr::-webkit-scrollbar{display:none}
+.scr.on{display:block;animation:sIn .3s cubic-bezier(.2,.8,.3,1)}
+@keyframes sIn{from{opacity:0;transform:translateY(10px)}to{opacity:1}}
+
+/* ── side notes ── */
+.notes{max-width:330px;font-size:14.5px;line-height:1.65;color:#3A4170}
+.notes .wordmark{font-family:var(--disp);font-weight:800;font-size:54px;line-height:.92;color:var(--blue);letter-spacing:-1px;text-transform:uppercase}
+.notes .tag{display:inline-block;background:var(--blue);color:#fff;font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:6px 12px;border-radius:999px;margin-bottom:14px}
+.notes p{margin:12px 0}
+.notes .hint{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:14px 16px;box-shadow:var(--shadow)}
+.notes .hint b{color:var(--blue)}
+@media(max-width:860px){.notes{display:none}}
+
+/* ── type scale ── */
+.kick{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--blue)}
+.disp{font-family:var(--disp);font-weight:800;letter-spacing:-.5px;line-height:1.02;text-transform:uppercase}
+.h-screen{font-size:34px}
+.h-sec{font-family:var(--disp);font-weight:700;font-size:19px;letter-spacing:-.2px}
+.sub{color:var(--mut);font-size:14px;line-height:1.55;margin-top:6px}
+
+/* ── buttons & chips ── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:none;border-radius:999px;font-family:var(--body);font-weight:800;font-size:15px;cursor:pointer;transition:transform .12s cubic-bezier(.2,.8,.3,1),box-shadow .14s,background .2s;user-select:none;min-height:48px;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.btn:active{transform:scale(.97);transition:transform .08s}
+.btn-pri{background:var(--blue);color:#fff;padding:14px 26px;box-shadow:0 10px 24px rgba(0,42,141,.32)}
+.btn-pri:hover{background:var(--blue-deep)}
+.btn-line{background:#fff;color:var(--blue);border:2px solid var(--blue);padding:12px 24px}
+.btn-soft{background:var(--blue-tint);color:var(--blue);padding:12px 24px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:10px 16px;border-radius:999px;border:1.5px solid var(--line);background:#fff;font-weight:700;font-size:13px;color:var(--ink);cursor:pointer;transition:all .16s;white-space:nowrap;user-select:none;min-height:40px}
+.chip:hover{border-color:var(--blue);color:var(--blue)}
+.chip.sel{background:var(--blue);border-color:var(--blue);color:#fff;transform:scale(1.03)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 8px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.badge{display:inline-flex;align-items:center;gap:5px;background:#fff;border:1.5px solid var(--line-blue);color:var(--blue);font-size:10.5px;font-weight:800;letter-spacing:.04em;padding:5px 10px;border-radius:999px;text-transform:uppercase}
+.badge.inv{background:var(--blue);border-color:var(--blue);color:#fff}
+.badge.crm{background:var(--cream);border-color:var(--cream-deep);color:#6B5A2E}
+
+/* ── top bar ── */
+.top{display:flex;align-items:center;gap:10px;margin-bottom:var(--s3)}
+.citypill{display:inline-flex;align-items:center;gap:8px;background:var(--cream);border:1.5px solid var(--cream-deep);padding:10px 16px;border-radius:999px;font-weight:800;font-size:14px;color:var(--blue);cursor:pointer;transition:transform .14s}
+.citypill:active{transform:scale(.96)}
+.citypill svg{width:15px;height:15px;stroke:var(--blue);fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.iconbtn{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;margin-left:auto;transition:all .15s}
+.iconbtn:hover{border-color:var(--blue)}
+.iconbtn svg{width:19px;height:19px;stroke:var(--blue);fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.backrow{display:inline-flex;align-items:center;gap:8px;color:var(--blue);font-weight:800;font-size:13.5px;cursor:pointer;margin-bottom:var(--s2)}
+.backrow svg{width:16px;height:16px;stroke:currentColor;stroke-width:2.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+/* ── hero / featured ── */
+.hero{background:var(--blue);border-radius:var(--r-lg);padding:var(--s3);color:#fff;position:relative;overflow:hidden;margin:var(--s2) 0 var(--s3);cursor:pointer}
+.hero .kick{color:#AEC3FF}
+.hero h3{font-family:var(--disp);font-weight:800;font-size:26px;line-height:1;text-transform:uppercase;letter-spacing:-.4px;margin:8px 0 6px;max-width:200px}
+.hero p{font-size:13px;line-height:1.5;color:#C9D6FF;max-width:190px}
+.hero .go{margin-top:14px;display:inline-flex;background:#fff;color:var(--blue);font-weight:800;font-size:13px;border-radius:999px;padding:10px 16px}
+.hero .mascot{position:absolute;right:-6px;bottom:-10px;width:150px;color:#fff;animation:lean 5s ease-in-out infinite;transform-origin:bottom center}
+@keyframes lean{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+
+/* ── section heads ── */
+.sec{display:flex;align-items:baseline;justify-content:space-between;margin:var(--s4) 0 var(--s2)}
+.sec a{font-size:12.5px;font-weight:800;color:var(--blue);cursor:pointer;text-decoration:none}
+
+/* ── category tiles ── */
+.cats{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cat{border-radius:var(--r-md);padding:var(--s2);cursor:pointer;border:1.5px solid var(--line);background:#fff;transition:all .16s;position:relative;overflow:hidden;min-height:118px;display:flex;flex-direction:column;justify-content:flex-end}
+.cat:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:var(--line-blue)}
+.cat.sel{border-color:var(--blue);box-shadow:var(--shadow)}
+.cat .ico{position:absolute;top:10px;right:10px;width:44px;height:44px;color:var(--blue);opacity:.9}
+.cat b{font-family:var(--disp);font-weight:700;font-size:15.5px;line-height:1.1;letter-spacing:-.2px}
+.cat span{font-size:11.5px;color:var(--mut);font-weight:600;margin-top:3px}
+.cat.crm{background:var(--cream);border-color:var(--cream-deep)}
+.cat.blu{background:var(--blue);border-color:var(--blue)}
+.cat.blu b{color:#fff}.cat.blu span{color:#B9C9F2}.cat.blu .ico{color:#fff}
+
+/* ── café cards ── */
+.card{border:1.5px solid var(--line);border-radius:var(--r-lg);overflow:hidden;background:#fff;margin-bottom:var(--s2);cursor:pointer;transition:transform .15s,box-shadow .2s}
+.card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.photo{height:148px;position:relative;overflow:hidden}
+.photo .doodle{position:absolute;right:10px;bottom:-8px;width:92px;opacity:.95}
+.photo .bdg{position:absolute;top:12px;left:12px}
+.cardbody{padding:14px 16px 16px}
+.cardbody h4{font-family:var(--disp);font-weight:700;font-size:17.5px;letter-spacing:-.2px;line-height:1.1}
+.meta{display:flex;align-items:center;gap:6px;color:var(--mut);font-size:12.5px;font-weight:600;margin-top:4px;flex-wrap:wrap}
+.meta i{width:3px;height:3px;border-radius:50%;background:#C8C4B4;display:inline-block}
+.must{margin-top:10px;display:inline-flex;align-items:center;gap:6px;background:var(--cream);color:#6B5A2E;font-size:12px;font-weight:800;border-radius:999px;padding:6px 12px;border:1px solid var(--cream-deep)}
+/* horizontal rail variant */
+.rail{display:flex;gap:12px;overflow-x:auto;padding:2px 2px 10px;scrollbar-width:none;margin:0 -20px;padding-left:20px;padding-right:20px}
+.rail::-webkit-scrollbar{display:none}
+.rail .card{min-width:236px;max-width:236px;margin-bottom:4px;flex:none}
+.rail .photo{height:118px}
+/* compact row */
+.row{display:flex;align-items:center;gap:13px;border:1.5px solid var(--line);border-radius:var(--r-md);padding:12px;margin-bottom:10px;background:#fff;cursor:pointer;transition:border-color .15s}
+.row:hover{border-color:var(--line-blue)}
+.row .thumb{width:56px;height:56px;border-radius:14px;flex:none;position:relative;overflow:hidden}
+.row .thumb .doodle{position:absolute;inset:8px;color:var(--blue)}
+.row b{display:block;font-size:14.5px;letter-spacing:-.1px}
+.row span{font-size:12px;color:var(--mut);font-weight:600}
+.row .end{margin-left:auto;display:flex;align-items:center;gap:8px;flex:none}
+
+/* photo duotones — strict palette family */
+.p1{background:linear-gradient(150deg,#DCE5FB,#AFC3F4 70%,#8FA9EC)}
+.p2{background:linear-gradient(150deg,#F6F0E1,#EADDBE 70%,#DECfa6)}
+.p3{background:linear-gradient(150deg,#002A8D,#1C44AE 70%,#3358C4)}
+.p4{background:linear-gradient(150deg,#EEF2FD,#D9E2F9 70%,#C2D1F4)}
+.p5{background:linear-gradient(150deg,#F3EDE0,#E2D5B8 60%,#9FB3E8)}
+.p6{background:linear-gradient(150deg,#C8D5F6,#9FB3E8 65%,#6F8BDC)}
+.pD .doodle{color:#fff}.pL .doodle{color:var(--blue)}
+
+/* ── save button ── */
+.save{position:absolute;top:10px;right:10px;height:38px;border-radius:999px;background:#fff;border:none;display:flex;align-items:center;gap:6px;padding:0 13px;cursor:pointer;box-shadow:0 5px 16px rgba(0,20,70,.20);font-family:var(--body);font-weight:800;font-size:12px;color:var(--blue);transition:all .18s;z-index:3}
+.save svg{width:15px;height:15px;stroke:var(--blue);fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;transition:all .18s}
+.save.is{background:var(--blue);color:#fff}
+.save.is svg{stroke:#fff;fill:#fff}
+.save.pop{animation:pop .5s cubic-bezier(.2,1.7,.4,1)}
+@keyframes pop{0%{transform:scale(.75)}55%{transform:scale(1.18)}100%{transform:scale(1)}}
+
+/* ── detail ── */
+#scr-detail{padding:0 0 40px}
+.dhero{height:280px;position:relative;border-radius:0 0 32px 32px;overflow:hidden}
+.dhero .doodle{position:absolute;right:18px;bottom:-14px;width:160px}
+.fab{position:absolute;top:calc(var(--top) - 4px);width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.95);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 5px 16px rgba(0,20,70,.18);z-index:5}
+.fab svg{width:18px;height:18px;stroke:var(--blue);stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.dbody{padding:var(--s3) var(--s3) 0}
+.tags{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0}
+.why{background:var(--cream);border:1.5px solid var(--cream-deep);border-radius:var(--r-md);padding:16px;font-size:14px;line-height:1.6;color:#4A4630;margin-bottom:14px}
+.why b{color:var(--blue);font-family:var(--disp);text-transform:uppercase;font-size:12px;letter-spacing:.08em;display:block;margin-bottom:5px}
+.facts{display:flex;gap:10px;margin-bottom:var(--s3)}
+.fact{flex:1;border:1.5px solid var(--line);border-radius:var(--r-sm);padding:12px 13px}
+.fact small{display:block;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);margin-bottom:4px}
+.fact b{font-size:13px;line-height:1.25;display:block}
+.ctas{display:flex;flex-direction:column;gap:10px;padding:0 var(--s3)}
+.ctas .btn{width:100%}
+.fineprint{text-align:center;font-size:11px;color:#9A9684;padding:14px 24px 0}
+
+/* ── city hub ── */
+.hubhead{background:var(--blue);margin:calc(var(--top) * -1) -20px var(--s3);padding:calc(var(--top) + 14px) 24px 26px;color:#fff;border-radius:0 0 32px 32px;position:relative;overflow:hidden}
+.hubhead .doodle{position:absolute;right:14px;bottom:14px;width:110px;color:#fff;opacity:.9}
+.hubhead h2{font-family:var(--disp);font-weight:800;font-size:40px;text-transform:uppercase;letter-spacing:-.8px;line-height:.95;max-width:230px}
+.hubstats{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.hubstats .badge{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3);color:#fff}
+
+/* ── saved folders ── */
+.folders{display:flex;flex-direction:column;gap:12px;margin-top:var(--s2)}
+.folder{background:var(--cream);border:1.5px solid var(--cream-deep);border-radius:var(--r-md);padding:16px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:all .16s;position:relative;overflow:hidden}
+.folder:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:var(--blue)}
+.folder.new{animation:fIn .55s cubic-bezier(.2,1.5,.4,1)}
+@keyframes fIn{0%{opacity:0;transform:scale(.7) translateY(16px)}100%{opacity:1;transform:none}}
+.folder .sticker{width:54px;height:54px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;flex:none;color:#fff}
+.folder .sticker svg{width:34px;height:34px}
+.folder b{font-family:var(--disp);font-weight:800;font-size:19px;text-transform:uppercase;letter-spacing:-.3px;display:block}
+.folder span{font-size:12.5px;color:var(--mut);font-weight:700}
+.folder .count{margin-left:auto;font-family:var(--disp);font-weight:800;font-size:24px;color:var(--blue)}
+.prog{height:5px;border-radius:99px;background:#fff;margin-top:7px;overflow:hidden;border:1px solid var(--cream-deep)}
+.prog i{display:block;height:100%;background:var(--blue);border-radius:99px;transition:width .4s}
+.visit{width:30px;height:30px;border-radius:50%;border:2px solid var(--line);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;flex:none}
+.visit svg{width:15px;height:15px;stroke:#C8C4B4;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:stroke .15s}
+.visit.is{background:var(--blue);border-color:var(--blue)}
+.visit.is svg{stroke:#fff}
+
+/* ── empty states ── */
+.empty{text-align:center;padding:48px 24px 24px}
+.empty .doodle{width:110px;margin:0 auto 16px;color:var(--blue)}
+.empty h3{font-family:var(--disp);font-weight:800;font-size:20px;text-transform:uppercase;letter-spacing:-.3px;margin-bottom:8px}
+.empty p{color:var(--mut);font-size:14px;line-height:1.6;max-width:250px;margin:0 auto 18px}
+
+/* ── map ── */
+#scr-map{padding:0}
+.mapwrap{position:absolute;inset:0;background:#EDF1FB}
+.mapwrap svg{width:100%;height:100%}
+.maptop{position:absolute;top:calc(var(--top) - 6px);left:16px;right:16px;z-index:10}
+.maptop .chips{margin-top:10px}
+.maptop .chip{box-shadow:0 5px 16px rgba(0,30,102,.10)}
+.pin{cursor:pointer;transform-origin:center bottom;transition:transform .15s}
+.pin:hover{transform:scale(1.12)}
+.pin.bounce{animation:bnc .5s cubic-bezier(.2,1.6,.4,1)}
+@keyframes bnc{0%{transform:scale(.7) translateY(6px)}60%{transform:scale(1.22) translateY(-6px)}100%{transform:scale(1)}}
+.mapcard{position:absolute;left:16px;right:16px;bottom:106px;background:#fff;border-radius:var(--r-md);box-shadow:0 18px 44px rgba(0,30,102,.2);padding:14px 16px;z-index:10;display:flex;align-items:center;gap:13px}
+.mapcard .thumb{width:52px;height:52px;border-radius:13px;flex:none;position:relative;overflow:hidden}
+.mapcard .thumb .doodle{position:absolute;inset:7px}
+.mapcard b{font-size:14px;display:block}
+.mapcard span{font-size:11.5px;color:var(--mut);font-weight:600}
+.mapcard .go{margin-left:auto;background:var(--blue);color:#fff;border:none;border-radius:999px;padding:10px 16px;font-weight:800;font-size:12.5px;cursor:pointer;flex:none;font-family:var(--body)}
+
+/* ── search ── */
+.searchbox{display:flex;align-items:center;gap:10px;background:#fff;border:2px solid var(--blue);border-radius:var(--r-md);padding:13px 16px;margin:var(--s2) 0 var(--s1)}
+.searchbox svg{width:19px;height:19px;stroke:var(--blue);stroke-width:2.4;fill:none;stroke-linecap:round}
+.searchbox input{border:none;background:transparent;outline:none;font-family:var(--body);font-size:15px;font-weight:600;flex:1;color:var(--ink)}
+.searchbox input::placeholder{color:#A9A593}
+.citycard{border:1.5px solid var(--line);border-radius:var(--r-md);padding:16px;display:flex;align-items:center;gap:14px;margin-bottom:10px;cursor:pointer;background:#fff;transition:all .15s}
+.citycard:hover{border-color:var(--blue);transform:translateY(-1px)}
+.citycard .cdoodle{width:46px;height:46px;color:var(--blue);flex:none}
+.citycard b{font-family:var(--disp);font-weight:800;font-size:17px;text-transform:uppercase;letter-spacing:-.2px;display:block}
+.citycard span{font-size:12px;color:var(--mut);font-weight:600}
+.citycard .n{margin-left:auto;font-size:11.5px;font-weight:800;color:var(--blue);background:var(--blue-tint);padding:6px 11px;border-radius:999px;flex:none}
+
+/* ── tab bar ── */
+.tabs{position:absolute;bottom:0;left:0;right:0;height:88px;background:rgba(255,255,255,.94);backdrop-filter:blur(14px);border-top:1.5px solid var(--line);display:flex;z-index:50;padding-bottom:16px}
+.tabs.hide{display:none}
+.tb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;color:#A3A08F;font-size:10.5px;font-weight:800;transition:color .15s;letter-spacing:.02em}
+.tb svg{width:23px;height:23px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tb.on{color:var(--blue)}
+
+/* ══ ONBOARDING ══ */
+#scr-ob{background:var(--blue);padding:0}
+#scr-ob.on{display:flex;flex-direction:column}
+#scr-ob.ob-w{background:#fff}
+.obtop{flex:1;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;color:#fff;min-height:200px}
+.obskip{position:absolute;top:var(--top);right:24px;z-index:10;color:rgba(255,255,255,.65);font-weight:700;font-size:13px;cursor:pointer;background:none;border:none;font-family:var(--body);-webkit-tap-highlight-color:transparent}
+.obsheet{background:#fff;border-radius:32px 32px 0 0;padding:24px 26px 36px;flex-shrink:0}
+.obsheet h2{font-family:var(--disp);font-weight:800;font-size:26px;text-transform:uppercase;letter-spacing:-.5px;line-height:1.04}
+.obsheet>p{color:var(--mut);font-size:14px;line-height:1.65;margin:10px 0 20px}
+.obdots{display:flex;gap:6px}
+.obdots i{width:7px;height:7px;border-radius:99px;background:rgba(0,42,141,.18);transition:all .3s}
+.obdots i.on{width:24px;background:var(--blue)}
+.wordmark-ob{font-family:var(--disp);font-weight:800;font-size:54px;line-height:.88;text-transform:uppercase;letter-spacing:-1px;text-align:center}
+@keyframes hop{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.hop{animation:hop 2.8s ease-in-out infinite}
+@keyframes obIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.ob-in{animation:obIn .3s cubic-bezier(.2,.8,.3,1)}
+/* ── Full-screen steps 2-4: 3-zone flex layout ── */
+.ob-frame{position:absolute;inset:0;display:flex;flex-direction:column;background:#fff}
+.ob-topbar{display:flex;align-items:center;justify-content:space-between;padding:calc(var(--top) + 16px) 24px 0;flex-shrink:0}
+.ob-skip-lt{color:var(--mut);background:none;border:none;font-family:var(--body);font-weight:700;font-size:13.5px;cursor:pointer;-webkit-tap-highlight-color:transparent;padding:4px 0}
+.ob-scroll{flex:1;overflow-y:auto;overflow-x:hidden;padding:20px 24px 0;scrollbar-width:none}
+.ob-scroll::-webkit-scrollbar{display:none}
+.ob-sico{width:52px;height:52px;border-radius:16px;background:var(--blue-tint);display:flex;align-items:center;justify-content:center;color:var(--blue);margin-bottom:20px;flex-shrink:0}
+.ob-sico svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round}
+.ob-sico.solid{background:var(--blue);color:#fff}
+.ob-h{font-family:var(--disp);font-weight:800;font-size:27px;text-transform:uppercase;letter-spacing:-.5px;line-height:1.04;margin-bottom:8px;color:var(--ink)}
+.ob-sub{font-size:14px;line-height:1.65;color:var(--mut);margin-bottom:28px}
+.ob-field{margin-bottom:14px}
+.ob-field label{display:block;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin-bottom:7px}
+.ob-input{width:100%;height:52px;border:1.5px solid var(--line);border-radius:12px;padding:0 16px;font-size:15px;font-family:var(--body);color:var(--ink);outline:none;background:#fff;transition:border-color .18s,box-shadow .18s}
+.ob-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(0,42,141,.08)}
+.ob-hint{display:flex;align-items:flex-start;gap:7px;font-size:12px;line-height:1.55;color:var(--mut);margin-top:14px}
+.ob-hint svg{flex-shrink:0;stroke:var(--mut);margin-top:.5px}
+.perm-group{border:1.5px solid var(--line);border-radius:18px;overflow:hidden;margin-bottom:16px;background:#fff}
+.perm-row{display:flex;align-items:center;gap:14px;padding:16px 18px;cursor:pointer;transition:background .15s;-webkit-tap-highlight-color:transparent}
+.perm-row:not(:last-child){border-bottom:1.5px solid var(--line)}
+.perm-row:active{background:var(--cream)}
+.perm-ico2{width:44px;height:44px;border-radius:13px;background:var(--blue-tint);display:flex;align-items:center;justify-content:center;color:var(--blue);flex:none;transition:background .18s,color .18s}
+.perm-ico2 svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.perm-row.on2 .perm-ico2{background:var(--blue);color:#fff}
+.perm-body2{flex:1}
+.perm-body2 b{font-size:14px;font-weight:700;display:block;margin-bottom:2px;color:var(--ink)}
+.perm-body2 span{font-size:12.5px;color:var(--mut);line-height:1.45;display:block}
+.ob-tog{width:46px;height:27px;border-radius:14px;border:none;cursor:pointer;position:relative;transition:background .22s;flex:none;background:var(--line);-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.ob-tog::after{content:'';position:absolute;width:21px;height:21px;border-radius:50%;background:#fff;top:3px;left:3px;transition:left .22s;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.ob-tog.on{background:var(--blue)}
+.ob-tog.on::after{left:22px}
+.mascot-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+.mascot-card{border:1.5px solid var(--line);border-radius:18px;padding:16px 10px 12px;cursor:pointer;transition:border-color .15s,box-shadow .15s,transform .12s;text-align:center;background:#fff;position:relative;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.mascot-card:active{transform:scale(.97)}
+.mascot-card.sel{border-color:var(--blue);box-shadow:0 0 0 3px rgba(0,42,141,.1)}
+.mascot-card .mico{width:66px;height:66px;margin:0 auto 8px;color:var(--blue)}
+.mascot-card b{font-family:var(--disp);font-size:13px;font-weight:800;display:block}
+.mascot-card span{font-size:11px;color:var(--mut);margin-top:2px;display:block}
+.mascot-chk{position:absolute;top:9px;right:9px;width:18px;height:18px;border-radius:50%;background:var(--blue);display:none;align-items:center;justify-content:center}
+.mascot-card.sel .mascot-chk{display:flex}
+.mascot-chk svg{width:10px;height:10px;stroke:#fff;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.ob-footer{flex-shrink:0;padding:14px 24px;padding-bottom:max(14px,env(safe-area-inset-bottom,14px));background:#fff}
+.ob-footer .btn{width:100%;border-radius:14px;height:54px;font-size:16px}
+.ob-feat{display:flex;align-items:center;gap:13px;padding:12px 14px;border-radius:12px;background:var(--cream);margin-bottom:8px}
+.ob-feat-ico{width:34px;height:34px;border-radius:9px;background:#fff;display:flex;align-items:center;justify-content:center;flex:none;color:var(--blue);box-shadow:0 1px 6px rgba(0,30,102,.08)}
+.ob-feat-ico svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round}
+.ob-feat div b{font-size:13px;font-weight:700;display:block;margin-bottom:1px}
+.ob-feat div span{font-size:12px;color:var(--mut);line-height:1.45}
+#hb-loader{position:absolute;inset:0;background:var(--blue);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;color:#fff}
+.fact.link{cursor:pointer;transition:background .15s}
+.fact.link:hover{background:var(--blue-tint)}
+.fact.link b{color:var(--blue)}
+
+/* ── toast ── */
+.toast{position:absolute;left:16px;right:16px;bottom:102px;background:var(--blue);color:#fff;border-radius:var(--r-md);padding:13px 16px;display:flex;align-items:center;gap:12px;z-index:80;box-shadow:0 18px 44px rgba(0,30,102,.45);transform:translateY(150%);transition:transform .42s cubic-bezier(.2,1.2,.3,1)}
+.toast.show{transform:none}
+.toast .bean{width:34px;height:40px;flex:none;color:#fff}
+.toast b{font-size:14px;display:block}
+.toast span{font-size:12px;opacity:.78;font-weight:600}
+.toast .ok{margin-left:auto;font-weight:800;font-size:12.5px;color:#FFE9B8;cursor:pointer;flex:none}
+
+/* ── real photography (blue editorial tint, doodle fallback) ── */
+.photo img,.thumb img,.dhero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.photo.hasimg .doodle,.thumb.hasimg .doodle,.dhero.hasimg .doodle{display:none}
+.photo::after,.dhero::after{content:'';position:absolute;inset:0;background:linear-gradient(185deg,rgba(0,30,102,.12) 0%,rgba(0,30,102,.02) 42%,rgba(0,30,102,.42) 100%);pointer-events:none}
+.thumb{background:var(--blue-tint)}
+.thumb::after{content:'';position:absolute;inset:0;background:rgba(0,30,102,.12);border-radius:inherit;pointer-events:none}
+.photo .bdg{z-index:2}
+
+/* ── quieter, cuter toast (auto-dismiss, no button) ── */
+.toast{left:50%;right:auto;transform:translate(-50%,calc(100% + 140px));opacity:0;pointer-events:none;width:max-content;max-width:330px;border-radius:999px;padding:9px 18px 9px 11px;gap:10px;box-shadow:0 14px 34px rgba(0,30,102,.4);cursor:pointer;transition:transform .38s cubic-bezier(.2,1.2,.3,1),opacity .28s}
+.toast.show{transform:translate(-50%,0);opacity:1;pointer-events:auto}
+.toast .bean{width:26px;height:30px}
+.toast b{font-size:13px}
+.toast span{font-size:11.5px;opacity:.72}
+.toast .ok{display:none}
+.toast.folder{border-radius:20px;padding:13px 20px 13px 14px;max-width:340px}
+.toast.folder .bean{width:38px;height:44px}
+.toast.folder b{font-size:14.5px}
+
+/* ── save fx: bean confetti + chip that flies to the Saved tab ── */
+.fx{position:absolute;inset:0;pointer-events:none;z-index:95;overflow:hidden}
+.flychip{position:absolute;z-index:97;background:var(--blue);color:#fff;font-weight:800;font-size:11.5px;padding:6px 12px;border-radius:999px;pointer-events:none;box-shadow:0 6px 18px rgba(0,30,102,.35);white-space:nowrap}
+.tb.pulse svg{animation:tpulse .55s cubic-bezier(.2,1.6,.4,1)}
+@keyframes tpulse{0%{transform:scale(1)}45%{transform:scale(1.45)}100%{transform:scale(1)}}
+
+/* ── tactile press states ── */
+.card:active{transform:scale(.985)}
+.cat:active,.row:active,.folder:active,.citycard:active{transform:scale(.98)}
+
+/* ── all-phone responsive: app fills the device edge-to-edge ── */
+@media(max-width:620px){
+ :root{--top:calc(16px + env(safe-area-inset-top))}
+ body{padding:0;background:#fff;display:block;min-height:100dvh}
+ .stage{display:block}
+ .notes{display:none}
+ .phone{width:100%;max-width:none;height:100dvh;max-height:none;border-radius:0;box-shadow:none}
+ .notch{display:none}
+ .tabs{height:auto;min-height:70px;padding-bottom:calc(10px + env(safe-area-inset-bottom))}
+ .toast{bottom:calc(92px + env(safe-area-inset-bottom))}
+ .rail .card{min-width:64vw;max-width:64vw}
+ .h-screen{font-size:31px}
+ .hero h3{font-size:24px}
+}
+@media(max-width:360px){
+ .cats{grid-template-columns:1fr}
+ .facts{flex-wrap:wrap}
+}
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="phone">
+    <div class="notch"></div>
+    <div id="hb-loader">
+      <div style="font-family:var(--disp);font-size:52px;font-weight:800;line-height:.88;text-transform:uppercase;letter-spacing:-1.5px;text-align:center;animation:hop 2.8s ease-in-out infinite">Hey<br>Beans!</div>
+      <div id="hb-lbean" style="width:78px;margin-top:12px;opacity:.85;animation:hop 2.8s ease-in-out infinite .35s"></div>
+      <div id="hb-lmsg" style="margin-top:28px;font-size:13px;font-weight:600;opacity:.6;letter-spacing:.06em">Brewing your café list…</div>
+    </div>
+    <div class="swrap">
+      <div class="scr" id="scr-ob"></div>
+      <div class="scr" id="scr-home"></div>
+      <div class="scr" id="scr-browse"></div>
+      <div class="scr" id="scr-city"></div>
+      <div class="scr" id="scr-detail"></div>
+      <div class="scr" id="scr-map">
+        <div class="mapwrap" id="mapSvg"></div>
+        <div class="maptop">
+          <div class="citypill" style="box-shadow:0 5px 16px rgba(0,30,102,.12)" onclick="go('search')">
+            <svg viewBox="0 0 24 24"><path d="M12 21s-7-6.1-7-11a7 7 0 1 1 14 0c0 4.9-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
+            <span id="mapCity">Seattle</span>
+          </div>
+          <div class="chips" id="mapChips"></div>
+        </div>
+        <div class="mapcard" id="mapCard" style="display:none"></div>
+      </div>
+      <div class="scr" id="scr-saved"></div>
+      <div class="scr" id="scr-search"></div>
+    </div>
+
+    <div class="tabs hide" id="tabs">
+      <div class="tb on" data-go="home" onclick="go('home')">
+        <svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 20z"/></svg>Discover</div>
+      <div class="tb" data-go="browse" onclick="go('browse')">
+        <svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7.5" height="7.5" rx="2"/><rect x="13" y="3.5" width="7.5" height="7.5" rx="2"/><rect x="3.5" y="13" width="7.5" height="7.5" rx="2"/><rect x="13" y="13" width="7.5" height="7.5" rx="2"/></svg>Browse</div>
+      <div class="tb" data-go="map" onclick="go('map')">
+        <svg viewBox="0 0 24 24"><path d="M9 4L3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4z"/><path d="M9 4v14M15 6v14"/></svg>Map</div>
+      <div class="tb" data-go="saved" onclick="go('saved')">
+        <svg viewBox="0 0 24 24"><path d="M6.5 3.5h11A1.5 1.5 0 0 1 19 5v16l-7-4-7 4V5a1.5 1.5 0 0 1 1.5-1.5z"/></svg>Saved</div>
+    </div>
+
+    <div class="fx" id="fx"></div>
+    <div class="toast" id="toast" onclick="hideToast()">
+      <div class="bean hop" id="toastBean"></div>
+      <div><b id="toastT"></b><span id="toastS"></span></div>
+    </div>
+  </div>
+
+  <aside class="notes">
+    <div class="tag">Concept v2 · interactive</div>
+    <div class="wordmark">Hey<br>Beans!</div>
+    <p><b style="color:var(--blue)">Found on reels. Saved properly.</b> Redesigned with a real design system, a hand-drawn bean mascot, and <b>150 real cafés</b> across SF, Seattle, NYC, Boston, and Chicago.</p>
+    <div class="hint">☕ <b>Try this:</b> save a few cafés — beans burst, a chip flies into your <b>Saved</b> tab, and city folders build themselves. On a phone this fills the screen edge-to-edge.</div>
+  </aside>
+</div>
+<script>
+/* ══ CSV DATA LAYER ══ */
+const CSV_URL='https://docs.google.com/spreadsheets/d/e/2PACX-1vTnGP-lq4-0FnDMlawlrQHRuoGsWjf792uL8tcv2SwbuAbxR36u0P7tW4tDatJzKj81OOxlGFHr54FE/pub?gid=0&single=true&output=csv';
+const CITY_LIST=[{id:'sf',name:'San Francisco',short:'SF',hoods:'Mission · North Beach · Outer Sunset'},{id:'sea',name:'Seattle',short:'SEA',hoods:'Capitol Hill · Ballard · Fremont'},{id:'nyc',name:'New York City',short:'NYC',hoods:'East Village · Williamsburg · SoHo'},{id:'bos',name:'Boston',short:'BOS',hoods:'North End · Cambridge · South End'},{id:'chi',name:'Chicago',short:'CHI',hoods:'Logan Square · Wicker Park · The Loop'},{id:'la',name:'Los Angeles',short:'LA',hoods:'Silver Lake · Arts District · Larchmont'},{id:'ldn',name:'London',short:'LDN',hoods:'Shoreditch · Soho · Brixton'},{id:'tyo',name:'Tokyo',short:'TYO',hoods:'Shibuya · Tomigaya · Nakameguro'},{id:'par',name:'Paris',short:'PAR',hoods:'Le Marais · Montmartre · Canal St-Martin'},{id:'mia',name:'Miami',short:'MIA',hoods:'Wynwood · Brickell · South Beach'},{id:'aus',name:'Austin',short:'AUS',hoods:'East Side · South Congress · Zilker'},{id:'pdx',name:'Portland',short:'PDX',hoods:'Alberta Arts · Pearl · Division'}];
+const CATS={T:{name:"Trending Brews",blurb:"New, buzzy & talked-about",icon:"spark"},G:{name:"Neighborhood Gems",blurb:"Loved by the locals",icon:"heart"},W:{name:"Work & Linger",blurb:"Settle in, plug in, stay",icon:"mug"},A:{name:"Worth the Walk",blurb:"Destination-grade cafés",icon:"flag"}};
+const MOODS=[{label:"To work",cat:"W"},{label:"Something new",cat:"T"},{label:"Like a local",cat:"G"},{label:"For the gram",cat:"A"},{label:"Surprise me",cat:"*"}];
+const QUICK=["good for work","aesthetic","matcha","specialty","historic","pastries","late night"];
+let UID=0;const CAFES=[];
+const _CM={'san francisco':'sf','sf':'sf','seattle':'sea','sea':'sea','new york city':'nyc','new york':'nyc','nyc':'nyc','ny':'nyc','brooklyn':'nyc','boston':'bos','bos':'bos','chicago':'chi','chi':'chi','los angeles':'la','la':'la','london':'ldn','ldn':'ldn','tokyo':'tyo','tyo':'tyo','paris':'par','par':'par','miami':'mia','mia':'mia','austin':'aus','aus':'aus','portland':'pdx','pdx':'pdx'};
+function _cid(r){const v=(r||'').toLowerCase().trim();if(_CM[v])return _CM[v];const s=v.replace(/[^a-z]/g,'').slice(0,3);if(s&&!CITY_LIST.find(c=>c.id===s))CITY_LIST.push({id:s,name:(r||'').trim().replace(/\b\w/g,l=>l.toUpperCase()),short:s.toUpperCase(),hoods:''});return s||'nyc';}
+const _CC={'t':'T','trending':'T','trendy':'T','g':'G','gem':'G','gems':'G','neighborhood gems':'G','hidden gem':'G','local':'G','w':'W','work':'W','work-friendly':'W','great for work':'W','a':'A','aesthetic':'A','worth the walk':'A','destination':'A'};
+function _cat(r){return _CC[(r||'').toLowerCase().trim()]||'G';}
+function _csv(text){const CR='\r',LF='\n',QT='"',CM=',';const rows=[],fl=()=>{row.push(fld);fld='';},nr=()=>{fl();if(row.some(v=>v.trim()))rows.push(row);row=[];};let row=[],fld='',inQ=false;for(let i=0;i<text.length;i++){const c=text[i],n=text[i+1];if(inQ){if(c===QT&&n===QT){fld+=QT;i++;}else if(c===QT){inQ=false;}else{fld+=c;}}else{if(c===QT){inQ=true;}else if(c===CM){fl();}else if(c===CR&&n===LF){nr();i++;}else if(c===CR||c===LF){nr();}else{fld+=c;}}}nr();return rows;}
+function _col(H,ns){for(const n of ns){const i=H.indexOf(n);if(i!==-1)return i;}for(const n of ns){const i=H.findIndex(h=>h.includes(n));if(i!==-1)return i;}return -1;}
+function _ingest(rows){if(rows.length<2)return;const H=rows[0].map(h=>h.toLowerCase().trim().replace(/[\s\-\/]+/g,'_').replace(/[^a-z0-9_]/g,''));const iN=_col(H,['name','cafe_name','cafe','title','place_name']);const iCi=_col(H,['city','city_id','location','town']);const iHo=_col(H,['neighborhood','neighbourhood','hood','area','district']);const iCa=_col(H,['category','cat','type','shelf','vibe']);const iM=_col(H,['must_try','signature','specialty','must','drink']);const iB=_col(H,['blurb','description','desc','about','notes']);const iT=_col(H,['tags','tag','keywords','vibes']);const iP=_col(H,['photo','photo_index','photo_num','image','img']);const iWu=_col(H,['website','website_url','web','url','site']);const iMu=_col(H,['maps_url','google_maps','map_url','maps','gmap']);if(iN===-1){console.warn('CSV: no name column',rows[0].join(', '));return;}const hoods={};for(let i=1;i<rows.length;i++){const r=rows[i],nm=(r[iN]||'').trim();if(!nm)continue;const cityId=_cid(iCi!==-1?r[iCi]:'');const hood=(iHo!==-1?r[iHo]:'').trim();const tags=(iT!==-1?(r[iT]||''):'').split(/[,;|]/).map(t=>t.trim()).filter(Boolean);const pn=iP!==-1?parseInt(r[iP]):0;const wu=(iWu!==-1?(r[iWu]||''):'').trim();const mu=(iMu!==-1?(r[iMu]||''):'').trim();if(hood){if(!hoods[cityId])hoods[cityId]=[];if(!hoods[cityId].includes(hood))hoods[cityId].push(hood);}CAFES.push({id:++UID,city:cityId,n:nm,h:hood,c:_cat(iCa!==-1?r[iCa]:''),m:(iM!==-1?r[iM]:'').trim(),b:(iB!==-1?r[iB]:'').trim(),t:tags,p:(pn>=1&&pn<=18)?pn:((UID%18)+1),wu,mu});}for(const cl of CITY_LIST){const hs=hoods[cl.id];if(hs&&hs.length)cl.hoods=hs.slice(0,4).join(' \xb7 ');}console.log('Loaded '+CAFES.length+' caf\xe9s');}
+async function _initData(){const loader=document.getElementById('hb-loader');const lbean=document.getElementById('hb-lbean');const lmsg=document.getElementById('hb-lmsg');if(lbean)lbean.innerHTML='<svg viewBox="0 0 120 150" fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" style="width:100%;height:100%"><path d="M62 18 C95 20 106 52 97 84 C88 118 64 134 46 130 C24 125 14 96 22 64 C30 34 44 17 62 18 Z"/><path d="M70 30 C58 55 60 95 50 118" stroke-width="4.5"/><circle cx="50" cy="58" r="2.6" fill="#fff"/><circle cx="72" cy="60" r="2.6" fill="#fff"/><path d="M54 72 q8 7 16 1" stroke-width="4.5"/></svg>';try{if(lmsg)lmsg.textContent='Fetching your caf\xe9 list\u2026';const resp=await fetch(CSV_URL);if(!resp.ok)throw new Error('HTTP '+resp.status);const text=await resp.text();if(lmsg)lmsg.textContent='Parsing\u2026';_ingest(_csv(text));if(CAFES.length&&window._hbState){const first=CITY_LIST.find(c=>CAFES.some(x=>x.city===c.id));if(first)window._hbState.city=first.id;}}catch(e){console.error('CSV:',e);if(lmsg)lmsg.innerHTML='<span style="font-size:20px">\u26a0</span><br>Could not load sheet.<br><span style="font-size:11px;opacity:.6">Opening anyway\u2026</span>';await new Promise(r=>setTimeout(r,1500));}if(loader){loader.style.transition='opacity .35s';loader.style.opacity='0';setTimeout(()=>loader.remove(),380);}setTimeout(()=>{if(typeof renderOb==='function')renderOb();const s=document.getElementById('scr-ob');if(s)s.classList.add('on');},loader?200:0);}
+</script>
+
+<script>
+/* ════════ HEY BEANS! app logic ════════ */
+const $=s=>document.querySelector(s);
+const cityOf=id=>CITY_LIST.find(c=>c.id===id);
+const state={city:'sea',saved:{},visited:new Set(),browseCat:'T',mapCat:'all',openFolder:null,from:'home',lastNew:null,mood:null};
+const isSaved=id=>Object.values(state.saved).some(a=>a.includes(id));
+
+/* ── hand-drawn SVG library (line art, currentColor) ── */
+const LW='fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"';
+function beanSVG(){return `<svg viewBox="0 0 120 150" ${LW.replace('5','5.5')} style="width:100%;height:100%">
+  <path d="M62 18 C95 20 106 52 97 84 C88 118 64 134 46 130 C24 125 14 96 22 64 C30 34 44 17 62 18 Z"/>
+  <path d="M70 30 C58 55 60 95 50 118" stroke-width="4.5"/>
+  <circle cx="50" cy="58" r="2.6" fill="currentColor"/><circle cx="72" cy="60" r="2.6" fill="currentColor"/>
+  <path d="M54 72 q8 7 16 1" stroke-width="4.5"/>
+  <path d="M24 78 q-14 2 -16 14" stroke-width="5"/>
+  <path d="M97 64 q14 -4 20 4 l-2 16 q-8 4 -16 0" stroke-width="5"/>
+  <rect x="103" y="62" width="20" height="20" rx="4" stroke-width="4.5"/>
+  <path d="M106 56 q2 -6 0 -10 M114 56 q2 -6 0 -10" stroke-width="4"/>
+  <path d="M44 130 q-2 10 -8 12 M58 131 q2 10 8 12" stroke-width="5"/>
+</svg>`}
+const DOODLES=[
+ `<path d="M20 40 h60 l-8 56 a10 10 0 0 1 -10 9 H38 a10 10 0 0 1 -10 -9 Z M80 48 h10 a10 10 0 0 1 0 22 h-12 M34 26 q3 -8 0 -14 M50 26 q3 -8 0 -14 M66 26 q3 -8 0 -14"/>`,
+ `<ellipse cx="55" cy="64" rx="34" ry="42" transform="rotate(18 55 64)"/><path d="M68 30 C56 50 58 80 46 98"/>`,
+ `<path d="M16 56 q40 -44 78 0 q-39 18 -78 0 Z M30 64 q24 10 50 0"/>`,
+ `<path d="M30 30 h45 v40 a22 22 0 0 1 -45 0 Z M75 36 h8 a9 9 0 0 1 0 20 h-9 M22 102 h60"/>`,
+ `<path d="M50 16 v92 M50 24 q34 -12 34 14 q0 22 -34 14"/>`,
+ `<circle cx="55" cy="60" r="36"/><path d="M55 38 v22 l14 10"/>`,
+];
+const doodleSVG=i=>`<svg viewBox="0 0 110 120" ${LW} style="width:100%;height:100%">${DOODLES[i%DOODLES.length]}</svg>`;
+const CITY_DOODLE={
+ sea:`<path d="M55 100 V52 M35 100 L55 64 L75 100 M30 46 h50 M36 46 q19 -26 38 0 M55 26 v-8"/>`,
+ sf:`<path d="M10 86 h96 M28 86 V40 M82 86 V40 M22 40 h12 M76 40 h12 M28 44 q27 30 54 0 M28 56 q27 30 54 0" stroke-width="4.5"/>`,
+ nyc:`<path d="M20 100 V60 h16 v40 M44 100 V40 h18 v60 M70 100 V70 h16 v30 M53 40 V22 M53 22 l0 0 M48 30 h10" stroke-width="4.5"/>`,
+ bos:`<path d="M30 100 h52 M40 100 V64 h32 v36 M36 64 h40 M56 64 V44 M56 44 q-16 4 -16 20 M56 44 q16 4 16 20 M56 44 v-12 l10 4 -10 4" stroke-width="4.5"/>`,
+ chi:`<path d="M34 100 V46 h44 v54 M44 46 v-14 M68 46 v-14 M40 60 h32 M40 74 h32 M40 88 h32" stroke-width="4.5"/>`,
+};
+const citySVG=id=>`<svg viewBox="0 0 110 120" ${LW} style="width:100%;height:100%">${CITY_DOODLE[id]}</svg>`;
+const ICONS={
+ spark:`<path d="M55 14 l9 28 28 9 -28 9 -9 28 -9 -28 -28 -9 28 -9 Z M92 78 l4 12 12 4 -12 4 -4 12 -4 -12 -12 -4 12 -4 Z"/>`,
+ heart:`<path d="M55 96 C30 78 14 62 14 44 a20 20 0 0 1 41 -6 a20 20 0 0 1 41 6 c0 18 -16 34 -41 52 Z"/>`,
+ mug:`<path d="M22 36 h56 v34 a26 26 0 0 1 -56 0 Z M78 42 h10 a11 11 0 0 1 0 24 h-11 M34 24 q3 -8 0 -12 M50 24 q3 -8 0 -12"/>`,
+ flag:`<path d="M30 104 V18 M30 22 h52 l-12 16 12 16 H30"/>`,
+};
+const iconSVG=k=>`<svg viewBox="0 0 110 110" ${LW.replace('5','6')} style="width:100%;height:100%">${ICONS[k]}</svg>`;
+const pinIcon=`<svg viewBox="0 0 24 24" style="width:17px;height:17px" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.1-7-11a7 7 0 1 1 14 0c0 4.9-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>`;
+const bmIcon=`<svg viewBox="0 0 24 24"><path d="M6.5 3.5h11A1.5 1.5 0 0 1 19 5v16l-7-4-7 4V5a1.5 1.5 0 0 1 1.5-1.5z"/></svg>`;
+
+/* real café & coffee photography (Unsplash); doodle plate shows if an image can't load */
+const PHOTOS=["1495474472287-4d71bcdd2085","1501339847302-ac426a4a7cbb","1554118811-1e0d58224f24","1559925393-8be0ec4767c8","1453614512568-c4024d13c247","1442512595331-e89e73853f31","1447933601403-0c6688de566e","1509042239860-f550ce710b93","1521017432531-fbd92d768814","1525610553991-2bede1a236e2","1498804103079-a6351b050096","1504753793650-d4a2b783c15e","1445116572660-236099ec97a0","1511920170033-f8396924c348","1493857671505-72967e2e2760","1461023058943-07fcbe16d735","1414235077428-338989a2e8c0","1506372023823-741c83b836fe"];
+const photoURL=(c,w)=>`https://images.unsplash.com/photo-${PHOTOS[(c.id*7)%PHOTOS.length]}?auto=format&fit=crop&w=${w}&q=60`;
+const photoImg=(c,w)=>`<img src="${photoURL(c,w)}" alt="" loading="lazy" onload="this.parentElement.classList.add('hasimg')" onerror="this.remove()">`;
+
+/* ── navigation ── */
+function go(s){
+  document.querySelectorAll('.scr').forEach(x=>x.classList.remove('on'));
+  $('#scr-'+s).classList.add('on');
+  document.querySelectorAll('.tb').forEach(t=>t.classList.toggle('on',t.dataset.go===s));
+  ({home:renderHome,browse:renderBrowse,saved:renderSaved,map:renderMap,search:renderSearch,city:renderCity}[s]||(()=>{}))();
+}
+
+/* ══ ONBOARDING 5-STEP ══ */
+const _LWM='fill="none" stroke="currentColor" stroke-width="4.8" stroke-linecap="round" stroke-linejoin="round"';
+const _MSCT={biscuit:`<svg viewBox="0 0 110 120" ${_LWM}><path d="M30 42 Q14 50 17 68 Q19 80 35 75"/><path d="M80 42 Q96 50 93 68 Q91 80 75 75"/><ellipse cx="55" cy="56" rx="28" ry="25"/><circle cx="44" cy="52" r="5.2" fill="currentColor" stroke="none"/><circle cx="66" cy="52" r="5.2" fill="currentColor" stroke="none"/><circle cx="42.2" cy="50.2" r="1.8" fill="white" stroke="none"/><circle cx="64.2" cy="50.2" r="1.8" fill="white" stroke="none"/><ellipse cx="55" cy="63" rx="4.5" ry="3" fill="currentColor" stroke="none"/><path d="M47 70 q8 7 16 0"/><ellipse cx="55" cy="93" rx="23" ry="19"/><rect x="44" y="99" width="22" height="17" rx="5.5"/><path d="M66 103 h5 a4.5 4.5 0 0 1 0 9 h-5"/><path d="M50 97 q2 -4 0 -9 M59 96 q2 -4 0 -9"/></svg>`,cleo:`<svg viewBox="0 0 110 120" ${_LWM}><path d="M28 35 l10 -18 13 14"/><path d="M82 35 l-10 -18 -13 14"/><circle cx="55" cy="48" r="27"/><circle cx="43" cy="44" r="7" fill="currentColor" stroke="none"/><circle cx="67" cy="44" r="7" fill="currentColor" stroke="none"/><circle cx="41" cy="42" r="2.4" fill="white" stroke="none"/><circle cx="65" cy="42" r="2.4" fill="white" stroke="none"/><path d="M52 57 l3 4 3 -4 Z" fill="currentColor" stroke="none"/><path d="M49 63 q6 5 12 0"/><path d="M21 51 h18 M20 58 h15"/><path d="M89 51 h-18 M90 58 h-15"/><ellipse cx="55" cy="92" rx="22" ry="19"/><path d="M77 98 q18 -8 14 -28"/><rect x="43" y="97" width="23" height="17" rx="5.5"/><path d="M66 101 h5 a4.5 4.5 0 0 1 0 9 h-5"/><path d="M49 95 q2 -4 0 -9 M58 94 q2 -4 0 -9"/></svg>`,drip:`<svg viewBox="0 0 110 120" ${_LWM}><path d="M57 19 C90 21 102 53 93 83 C83 115 59 129 41 124 C19 118 9 90 17 58 C25 28 39 18 57 19 Z"/><path d="M64 31 C52 56 54 91 46 113"/><circle cx="44" cy="56" r="6" fill="currentColor" stroke="none"/><circle cx="69" cy="58" r="6" fill="currentColor" stroke="none"/><circle cx="42" cy="54" r="2.2" fill="white" stroke="none"/><circle cx="67" cy="56" r="2.2" fill="white" stroke="none"/><path d="M47 73 q10 9 20 2"/><path d="M21 80 q-13 2 -16 13"/><path d="M95 65 q14 -4 20 5 l-2 15 q-8 4 -16 0"/><rect x="100" y="62" width="18" height="19" rx="4" stroke-width="4.2"/><path d="M103 57 q2 -5 0 -9 M112 57 q2 -5 0 -9" stroke-width="4"/></svg>`,mochi:`<svg viewBox="0 0 110 120" ${_LWM}><rect x="14" y="31" width="82" height="73" rx="24"/><path d="M96 47 q20 0 20 20 q0 20 -20 20"/><circle cx="40" cy="68" r="6" fill="currentColor" stroke="none"/><circle cx="70" cy="68" r="6" fill="currentColor" stroke="none"/><circle cx="38" cy="66" r="2.2" fill="white" stroke="none"/><circle cx="68" cy="66" r="2.2" fill="white" stroke="none"/><path d="M40 83 q15 13 30 0"/><circle cx="30" cy="79" r="6" fill="currentColor" stroke="none" opacity="0.12"/><circle cx="80" cy="79" r="6" fill="currentColor" stroke="none" opacity="0.12"/><path d="M41 26 q3 -12 0 -20 M55 24 q3 -12 0 -20 M69 26 q3 -12 0 -20" stroke-width="4"/><ellipse cx="37" cy="109" rx="14" ry="6"/><ellipse cx="73" cy="109" rx="14" ry="6"/></svg>`};
+const _MASCOTS=[{id:'biscuit',name:'Biscuit',vibe:'Friendly & warm'},{id:'cleo',name:'Cleo',vibe:'Curious & chic'},{id:'drip',name:'Drip',vibe:'Chill & focused'},{id:'mochi',name:'Mochi',vibe:'Sweet & bubbly'}];
+let ob=0;const _obD={name:'',phone:'',notifs:false,location:false,mascot:'biscuit'};
+function _dt(){return '<div class="obdots">'+[0,1,2,3,4].map(i=>'<i class="'+(i===ob?'on':'')+'"></i>').join('')+'</div>';}
+function _topbar(sk){return '<div class="ob-topbar">'+_dt()+(sk?'<button class="ob-skip-lt" onclick="endOb()">Skip</button>':'<span></span>')+'</div>';}
+function _ob0(){const s=$('#scr-ob');s.classList.remove('ob-w');s.innerHTML='<button class="obskip" onclick="endOb()">Skip</button><div class="obtop ob-in"><div style="display:flex;flex-direction:column;align-items:center;gap:10px"><div class="wordmark-ob hop">Hey<br>Beans!</div><div style="width:88px;opacity:.9;margin-top:8px" class="hop">'+beanSVG()+'</div></div></div><div class="obsheet ob-in">'+_dt()+'<h2 style="margin-top:2px">Found on reels.<br>Saved properly.</h2><p>You\'ve screenshotted caf\xe9s you\'ll never find again. Hey Beans! keeps every discovery in one organised, city-smart place.</p><button class="btn btn-pri" style="width:100%" onclick="obNext()">Get started</button></div>';}
+function _ob1(){const s=$('#scr-ob');s.classList.remove('ob-w');const grid=['spark','heart','mug','flag'].map(k=>'<div style="width:96px;height:96px;background:rgba(255,255,255,.1);border-radius:20px;padding:18px" class="hop">'+iconSVG(k)+'</div>').join('');s.innerHTML='<button class="obskip" onclick="endOb()">Skip</button><div class="obtop ob-in"><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;width:220px">'+grid+'</div></div><div class="obsheet ob-in">'+_dt()+'<h2 style="margin-top:2px">Discover.<br>Save. Sip.</h2><div class="ob-feat"><div class="ob-feat-ico"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5"/></svg></div><div><b>Real curated caf\xe9s</b><span>Cities, neighbourhoods, four honest shelves.</span></div></div><div class="ob-feat"><div class="ob-feat-ico"><svg viewBox="0 0 24 24"><path d="M6.5 3.5h11A1.5 1.5 0 0 1 19 5v16l-7-4-7 4V5a1.5 1.5 0 0 1 1.5-1.5z"/></svg></div><div><b>Auto-filing folders</b><span>Save a caf\xe9 and it sorts itself into the right city.</span></div></div><div class="ob-feat"><div class="ob-feat-ico"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.1-7-11a7 7 0 1 1 14 0c0 4.9-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg></div><div><b>Maps-ready</b><span>One tap to open any caf\xe9 in Google Maps.</span></div></div><button class="btn btn-pri" style="width:100%;margin-top:16px" onclick="obNext()">Sounds good \u2192</button></div>';}
+function _ob2(){const s=$('#scr-ob');s.classList.add('ob-w');const ico='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>';s.innerHTML='<div class="ob-frame ob-in">'+_topbar(true)+'<div class="ob-scroll"><div class="ob-sico">'+ico+'</div><div class="ob-h">Let\'s set<br>you up</div><p class="ob-sub">Just the basics \u2014 so the app can feel like yours from the start.</p><div class="ob-field"><label>First name</label><input class="ob-input" type="text" placeholder="What should we call you?" autocomplete="given-name" oninput="_obD.name=this.value" value="'+(_obD.name||'')+'"></div><div class="ob-field"><label>Phone number</label><input class="ob-input" type="tel" placeholder="+1 (000) 000-0000" autocomplete="tel" oninput="_obD.phone=this.value" value="'+(_obD.phone||'')+'"></div><div class="ob-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="13" height="13"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Your info stays private and is never shared.</div></div><div class="ob-footer"><button class="btn btn-pri" onclick="obNext()">Continue</button></div></div>';}
+function _ob3(){const s=$('#scr-ob');s.classList.add('ob-w');const bell='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>';const loc='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';const icoH='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>';const row=(key,cid,tid,ico,ttl,dsc)=>`<div class="perm-row${_obD[key]?' on2':''}" id="${cid}" onclick="_tP('${key}','${cid}','${tid}')"><div class="perm-ico2">${ico}</div><div class="perm-body2"><b>${ttl}</b><span>${dsc}</span></div><button class="ob-tog${_obD[key]?' on':''}" id="${tid}" onclick="event.stopPropagation();_tP('${key}','${cid}','${tid}')"></button></div>`;s.innerHTML='<div class="ob-frame ob-in">'+_topbar(true)+'<div class="ob-scroll"><div class="ob-sico">'+icoH+'</div><div class="ob-h">Works better<br>with these on</div><p class="ob-sub">Two quick permissions \u2014 both optional, both worth it.</p><div class="perm-group">'+row('notifs','pc-n','tog-n',bell,'Notifications','Know when a saved caf\xe9 drops a new special or starts trending.')+row('location','pc-l','tog-l',loc,'Location &amp; Maps','Get distances, walking directions, and caf\xe9s near you.')+'</div><div class="ob-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="13" height="13"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Change either permission any time in Settings.</div></div><div class="ob-footer"><button class="btn btn-pri" onclick="obNext()">All set, continue</button></div></div>';}
+function _tP(k,cid,tid){_obD[k]=!_obD[k];const c=document.getElementById(cid),t=document.getElementById(tid);if(c)c.classList.toggle('on2',_obD[k]);if(t)t.classList.toggle('on',_obD[k]);}
+function _ob4(){const s=$('#scr-ob');s.classList.add('ob-w');const ico='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>';const cards=_MASCOTS.map(m=>'<div class="mascot-card'+(_obD.mascot===m.id?' sel':'')+'" onclick="_pM(\''+m.id+'\')"><div class="mascot-chk"><svg viewBox="0 0 24 24"><path d="M5 13l5 5 9-11"/></svg></div><div class="mico">'+_MSCT[m.id]+'</div><b>'+m.name+'</b><span>'+m.vibe+'</span></div>').join('');s.innerHTML='<div class="ob-frame ob-in">'+_topbar(false)+'<div class="ob-scroll"><div class="ob-sico solid">'+ico+'</div><div class="ob-h">Pick your<br>coffee buddy</div><p class="ob-sub">They\'ll cheer you on as you explore \u2014 optional but cute.</p><div class="mascot-grid">'+cards+'</div></div><div class="ob-footer"><button class="btn btn-pri" onclick="endOb()">\u2615 Start exploring</button></div></div>';}
+function _pM(id){_obD.mascot=id;document.querySelectorAll('.mascot-card').forEach(c=>c.classList.toggle('sel',c.getAttribute('onclick')==="_pM('"+id+"')"));}
+const _OB=[_ob0,_ob1,_ob2,_ob3,_ob4];
+function renderOb(){if(_OB[ob])_OB[ob]();}
+function obNext(){if(ob<_OB.length-1){ob++;renderOb();}else endOb();}
+function endOb(){const s=$('#scr-ob');if(s)s.classList.remove('ob-w');$('#tabs').classList.remove('hide');go('home');}
+
+/* ── shared card builders ── */
+function saveBtn(c,small){
+ const s=isSaved(c.id);
+ return `<button class="save ${s?'is':''}" data-sv="${c.id}" onclick="event.stopPropagation();toggleSave(${c.id},event)" aria-label="Save">
+   ${bmIcon}${small?'':`<span>${s?'Saved':'Save'}</span>`}</button>`;
+}
+function card(c,rail){
+ const dark=c.p===3||c.p===6;
+ return `<div class="card" onclick="openDetail(${c.id})">
+  <div class="photo p${c.p} ${dark?'pD':'pL'}">${photoImg(c,720)}
+   <span class="bdg badge ${c.c==='T'?'inv':''}">${CATS[c.c].name}</span>
+   <div class="doodle">${doodleSVG(c.id)}</div>
+   ${saveBtn(c,rail)}
+  </div>
+  <div class="cardbody"><h4>${c.n}</h4>
+   <div class="meta"><span>${c.h}</span><i></i><span>${cityOf(c.city).short}</span></div>
+   <div class="must">★ ${c.m}</div></div></div>`;
+}
+function row(c){
+ const dark=c.p===3||c.p===6;
+ return `<div class="row" onclick="openDetail(${c.id})">
+  <div class="thumb p${c.p}">${photoImg(c,300)}<div class="doodle" style="color:${dark?'#fff':'var(--blue)'}">${doodleSVG(c.id)}</div></div>
+  <div><b>${c.n}</b><span>${c.h} · ★ ${c.m}</span></div>
+  <div class="end"><button class="save is-row ${isSaved(c.id)?'is':''}" style="position:static;height:34px;box-shadow:none;border:1.5px solid var(--line)" data-sv="${c.id}" onclick="event.stopPropagation();toggleSave(${c.id},event)">${bmIcon}</button></div></div>`;
+}
+
+/* ── HOME ── */
+function renderHome(){
+ const ct=cityOf(state.city);
+ const local=CAFES.filter(c=>c.city===state.city);
+ const trend=local.filter(c=>c.c==='T').slice(0,6);
+ const gems=local.filter(c=>c.c==='G').slice(0,3);
+ const feat=local.find(c=>c.t.includes('iconic'))||local[0];
+ $('#scr-home').innerHTML=`
+  <div class="top">
+   <div class="citypill" onclick="go('search')">${pinIcon}<span>${ct.name}</span>
+    <svg viewBox="0 0 24 24" style="width:14px;height:14px"><path d="M6 9l6 6 6-6"/></svg></div>
+   <div class="iconbtn" onclick="go('search')"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5"/></svg></div>
+  </div>
+  <div class="kick">Hey, bean lover</div>
+  <h2 class="disp h-screen">Where should<br>we sip today?</h2>
+  <div class="chips" style="margin-top:14px" id="moods">
+   ${MOODS.map(m=>`<button class="chip ${state.mood===m.cat?'sel':''}" onclick="pickMood('${m.cat}')">${m.label}</button>`).join('')}
+  </div>
+  <div class="hero" onclick="openDetail(${feat.id})">
+   <div class="kick">Today's pick · ${ct.short}</div>
+   <h3>${feat.n}</h3><p>${feat.b}</p>
+   <span class="go">Take me there →</span>
+   <div class="mascot">${beanSVG()}</div>
+  </div>
+  <div class="sec"><div class="h-sec">The four shelves</div><a onclick="go('browse')">See all</a></div>
+  <div class="cats">${Object.entries(CATS).map(([k,c],i)=>`
+   <div class="cat ${i===1?'crm':i===2?'blu':''}" onclick="state.browseCat='${k}';go('browse')">
+    <div class="ico">${iconSVG(c.icon)}</div><b>${c.name}</b><span>${c.blurb}</span></div>`).join('')}
+  </div>
+  <div class="sec"><div class="h-sec">Trending in ${ct.short}</div><a onclick="openCity('${state.city}')">City hub →</a></div>
+  <div class="rail">${trend.map(c=>card(c,true)).join('')}</div>
+  <div class="sec"><div class="h-sec">Neighborhood gems</div><a onclick="state.browseCat='G';go('browse')">More</a></div>
+  ${gems.map(row).join('')}`;
+}
+function pickMood(cat){
+ if(cat==='*'){const l=CAFES.filter(c=>c.city===state.city);openDetail(l[Math.floor(Math.random()*l.length)].id);return}
+ state.mood=state.mood===cat?null:cat;
+ if(state.mood){state.browseCat=cat;go('browse')}else renderHome();
+}
+
+/* ── BROWSE (categories) ── */
+function renderBrowse(){
+ const ct=cityOf(state.city);
+ const list=CAFES.filter(c=>c.city===state.city&&c.c===state.browseCat);
+ $('#scr-browse').innerHTML=`
+  <div class="top">
+   <div class="citypill" onclick="go('search')">${pinIcon}<span>${ct.name}</span></div>
+   <div class="iconbtn" onclick="go('search')"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5"/></svg></div>
+  </div>
+  <div class="kick">Browse</div>
+  <h2 class="disp h-screen">The four<br>shelves</h2>
+  <div class="cats" style="margin-top:16px">${Object.entries(CATS).map(([k,c])=>`
+   <div class="cat ${k===state.browseCat?'sel':''}" onclick="state.browseCat='${k}';renderBrowse()">
+    <div class="ico">${iconSVG(c.icon)}</div><b>${c.name}</b><span>${c.blurb}</span></div>`).join('')}
+  </div>
+  <div class="sec"><div class="h-sec">${CATS[state.browseCat].name} · ${ct.short}</div><span class="badge">${list.length} cafés</span></div>
+  ${list.map(c=>card(c)).join('')}`;
+}
+
+/* ── CITY HUB ── */
+function openCity(id){state.city=id;go('city')}
+function renderCity(){
+ const ct=cityOf(state.city);
+ const local=CAFES.filter(c=>c.city===state.city);
+ const savedN=(state.saved[state.city]||[]).length;
+ const trend=local.filter(c=>c.c==='T').slice(0,6);
+ const gems=local.filter(c=>c.c==='G').slice(0,4);
+ const walk=local.filter(c=>c.c==='A').slice(0,3);
+ $('#scr-city').innerHTML=`
+  <div class="hubhead">
+   <div class="backrow" style="color:#AEC3FF" onclick="go('home')"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>All cities</div>
+   <h2>${ct.name}</h2>
+   <div class="hubstats">
+    <span class="badge">${local.length} curated cafés</span>
+    <span class="badge">☆ ${savedN} saved</span>
+    <span class="badge">${ct.hoods.split('·').length}+ neighborhoods</span>
+   </div>
+   <div class="doodle">${citySVG(ct.id)}</div>
+  </div>
+  <div class="chips">${Object.entries(CATS).map(([k,c])=>`<button class="chip" onclick="state.browseCat='${k}';go('browse')">${c.name}</button>`).join('')}</div>
+  <div class="sec"><div class="h-sec">Trending this week</div><a onclick="state.browseCat='T';go('browse')">All</a></div>
+  <div class="rail">${trend.map(c=>card(c,true)).join('')}</div>
+  <div class="sec"><div class="h-sec">Neighborhood gems</div><a onclick="state.browseCat='G';go('browse')">All</a></div>
+  ${gems.map(row).join('')}
+  <div class="sec"><div class="h-sec">Worth the walk</div><a onclick="state.browseCat='A';go('browse')">All</a></div>
+  ${walk.map(row).join('')}
+  <button class="btn btn-line" style="width:100%;margin-top:8px" onclick="go('map')">Open ${ct.short} on the map</button>`;
+}
+
+/* ── LINK HELPERS ── */
+function _mapsUrl(c){if(c.mu&&c.mu.startsWith('http'))return c.mu;return'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent([c.n,c.h,cityOf(c.city).name].filter(Boolean).join(', '));}
+function _hoursUrl(c){if(c.wu&&c.wu.startsWith('http'))return c.wu;return'https://www.google.com/search?q='+encodeURIComponent(c.n+' '+cityOf(c.city).name+' coffee hours');}
+/* ── DETAIL ── */
+function openDetail(id){
+ const c=CAFES.find(x=>x.id===id),ct=cityOf(c.city),dark=c.p===3||c.p===6;
+ state.from=document.querySelector('.scr.on')?.id.replace('scr-','')||'home';
+ const why={T:"It\u2019s having a moment \u2014 and unlike most viral spots, it earns it.",G:"Locals voted with their feet long before any feed did.",W:"Order, open the laptop or the novel, and let an afternoon happen.",A:"Cross the city for it. That\u2019s the category."}[c.c];
+ const hoursLbl=c.wu?'Website \u2197':'Check hours \u2197';
+ const mapsUrl=_mapsUrl(c);const hoursUrl=_hoursUrl(c);
+ $('#scr-detail').innerHTML=`
+  <div class="dhero p${c.p} ${dark?'pD':'pL'}">${photoImg(c,1200)}
+   <button class="fab" style="left:18px" onclick="go(state.from)"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+   <div class="doodle">${doodleSVG(c.id)}</div>
+  </div>
+  <div class="dbody">
+   <span class="badge ${c.c==='T'?'inv':''}">${CATS[c.c].name}</span>
+   <h2 class="disp h-screen" style="margin-top:10px">${c.n}</h2>
+   <div class="meta" style="margin-top:8px"><span>${c.h}, ${ct.name}</span><i></i><span style="color:var(--blue);font-weight:800">Editor\u2019s pick</span></div>
+   <div class="tags">${c.t.map(t=>`<span class="badge crm">${t}</span>`).join('')}</div>
+   <div class="why"><b>Why it\u2019s on the shelf</b>${c.b} ${why}</div>
+   <div class="facts">
+    <div class="fact"><small>Must-try</small><b>\u2605 ${c.m}</b></div>
+    <div class="fact"><small>Best for</small><b>${c.t[0]||'coffee'}</b></div>
+    <div class="fact link" onclick="window.open('${hoursUrl}','_blank','noopener')"><small>Hours</small><b>${hoursLbl}</b></div>
+   </div>
+  </div>
+  <div class="ctas">
+   <button class="btn btn-pri" data-sv="${c.id}" onclick="toggleSave(${c.id},event)">${isSaved(c.id)?`\u2713 Saved to ${ct.name}`:`Save to ${ct.name}`}</button>
+   <button class="btn btn-line" onclick="window.open('${mapsUrl}','_blank','noopener')">${pinIcon} Open in Google Maps</button>
+  </div>
+  <div class="fineprint">Hours and Maps open Google in a new tab. Add <b>website</b> + <b>maps_url</b> to your sheet for direct links.</div>`;
+ go('detail');
+ document.querySelectorAll('.tb').forEach(t=>t.classList.remove('on'));
+}
+/* ── SAVE SYSTEM ── */
+function toggleSave(id,ev){
+ const c=CAFES.find(x=>x.id===id),ct=cityOf(c.city);
+ const arr=state.saved[c.city]||[],had=arr.includes(id);
+ if(had){
+  state.saved[c.city]=arr.filter(x=>x!==id);
+  if(!state.saved[c.city].length)delete state.saved[c.city];
+  showToast(`Removed from ${ct.name}`,`Still on the shelf if you change your mind.`);
+ }else{
+  const fresh=!state.saved[c.city];
+  state.saved[c.city]=[...arr,id];
+  const p=fxPos(ev);
+  burst(p.x,p.y);
+  if(fresh){state.lastNew=c.city;showToast(`New folder: ${ct.name} ✦`,`“${c.n}” filed itself. Zero folders to manage.`,'folder')}
+  else flyChip(`+1 ${ct.short}`,p.x,p.y);
+  pulseSaved();
+ }
+ document.querySelectorAll(`[data-sv="${id}"]`).forEach(b=>{
+  if(b.classList.contains('save')){
+   b.classList.toggle('is',!had);
+   const sp=b.querySelector('span');if(sp)sp.textContent=had?'Save':'Saved';
+   if(!had){b.classList.remove('pop');void b.offsetWidth;b.classList.add('pop')}
+  }else b.textContent=!had?`✓ Saved to ${ct.name}`:`Save to ${ct.name}`;
+ });
+}
+function fxPos(ev){
+ const ph=document.querySelector('.phone').getBoundingClientRect();
+ if(ev&&typeof ev.clientX==='number'&&ev.clientX)return{x:ev.clientX-ph.left,y:ev.clientY-ph.top};
+ return{x:ph.width/2,y:ph.height/2};
+}
+function burst(x,y){
+ const fx=document.getElementById('fx');
+ for(let i=0;i<10;i++){
+  const d=document.createElement('div');
+  d.innerHTML=Math.random()>.42
+   ?`<svg width="14" height="17" viewBox="0 0 120 150" fill="none" stroke="#002A8D" stroke-width="14" stroke-linecap="round"><path d="M62 18 C95 20 106 52 97 84 C88 118 64 134 46 130 C24 125 14 96 22 64 C30 34 44 17 62 18 Z"/><path d="M70 30 C58 55 60 95 50 118"/></svg>`
+   :`<svg width="11" height="11" viewBox="0 0 110 110" fill="#EAD9A8"><path d="M55 8 l12 35 35 12 -35 12 -12 35 -12 -35 -35 -12 35 -12 Z"/></svg>`;
+  d.style.cssText=`position:absolute;left:${x}px;top:${y}px`;
+  fx.appendChild(d);
+  const a=Math.random()*Math.PI*2,r=36+Math.random()*48;
+  d.animate(
+   [{transform:'translate(-50%,-50%) scale(.4) rotate(0deg)',opacity:1},
+    {transform:`translate(${Math.cos(a)*r-7}px,${Math.sin(a)*r-34}px) scale(1) rotate(${Math.random()*200-100}deg)`,opacity:0}],
+   {duration:620+Math.random()*260,easing:'cubic-bezier(.2,.8,.3,1)'}
+  ).onfinish=()=>d.remove();
+ }
+}
+function flyChip(text,x,y){
+ const fx=document.getElementById('fx');
+ const tab=document.querySelector('.tb[data-go="saved"]');
+ const ph=document.querySelector('.phone').getBoundingClientRect();
+ const tr=tab.getBoundingClientRect();
+ const tx=tr.left-ph.left+tr.width/2,ty=tr.top-ph.top+tr.height/2;
+ const d=document.createElement('div');d.className='flychip';d.textContent=text;
+ d.style.left=x+'px';d.style.top=y+'px';
+ fx.appendChild(d);
+ d.animate(
+  [{transform:'translate(-50%,-50%) scale(1)',opacity:1},
+   {transform:`translate(${tx-x}px,${ty-y}px) translate(-50%,-50%) scale(.35)`,opacity:.1}],
+  {duration:740,easing:'cubic-bezier(.35,0,.25,1)'}
+ ).onfinish=()=>d.remove();
+}
+function pulseSaved(){
+ const t=document.querySelector('.tb[data-go="saved"]');
+ t.classList.remove('pulse');void t.offsetWidth;t.classList.add('pulse');
+ setTimeout(()=>t.classList.remove('pulse'),650);
+}
+let tt;
+function showToast(t,s,kind){
+ const el=document.getElementById('toast');
+ el.classList.toggle('folder',kind==='folder');
+ document.getElementById('toastBean').innerHTML=beanSVG();
+ document.getElementById('toastT').textContent=t;
+ document.getElementById('toastS').textContent=s;
+ el.classList.add('show');clearTimeout(tt);
+ tt=setTimeout(hideToast,kind==='folder'?2600:1500);
+}
+function hideToast(){document.getElementById('toast').classList.remove('show')}
+
+/* ── SAVED ── */
+function renderSaved(){
+ const el=$('#scr-saved'),ids=Object.keys(state.saved);
+ if(state.openFolder&&!state.saved[state.openFolder])state.openFolder=null;
+ if(state.openFolder){
+  const cid=state.openFolder,ct=cityOf(cid);
+  const items=state.saved[cid].map(i=>CAFES.find(c=>c.id===i));
+  const done=items.filter(c=>state.visited.has(c.id)).length;
+  el.innerHTML=`
+   <div class="backrow" onclick="state.openFolder=null;renderSaved()"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>All folders</div>
+   <div class="kick">City folder</div>
+   <h2 class="disp h-screen">${ct.name}</h2>
+   <p class="sub">${items.length} saved · ${done} visited — tap the circle when you've been ✓</p>
+   <div class="prog" style="max-width:200px"><i style="width:${items.length?Math.round(done/items.length*100):0}%"></i></div>
+   <div style="height:20px"></div>
+   ${items.map(c=>{const dark=c.p===3||c.p===6;return `
+    <div class="row" onclick="openDetail(${c.id})">
+     <div class="thumb p${c.p}">${photoImg(c,300)}<div class="doodle" style="color:${dark?'#fff':'var(--blue)'}">${doodleSVG(c.id)}</div></div>
+     <div><b>${c.n}</b><span>${c.h} · ★ ${c.m}</span></div>
+     <div class="end"><div class="visit ${state.visited.has(c.id)?'is':''}" onclick="event.stopPropagation();toggleVisit(${c.id})"><svg viewBox="0 0 24 24"><path d="M5 13l5 5 9-11"/></svg></div></div>
+    </div>`}).join('')}
+   <button class="btn btn-soft" style="width:100%;margin-top:8px" onclick="state.city='${cid}';go('map')">Plan a ${ct.short} coffee trail →</button>`;
+  return;
+ }
+ if(!ids.length){
+  el.innerHTML=`<div class="kick">Saved</div><h2 class="disp h-screen">Your café<br>folders</h2>
+   <div class="empty"><div class="doodle">${beanSVG()}</div>
+    <h3>Nothing saved yet</h3>
+    <p>Save any café and a city folder appears on its own. Seattle, NYC, SF — wherever it lives, it gets filed.</p>
+    <button class="btn btn-pri" onclick="go('home')">Find your first café</button></div>`;
+  return;
+ }
+ el.innerHTML=`<div class="kick">Saved</div><h2 class="disp h-screen">Your café<br>folders</h2>
+  <p class="sub">Folders create themselves — one per city, the moment you save there.</p>
+  <div class="folders">${ids.map(cid=>{
+   const ct=cityOf(cid),n=state.saved[cid].length;
+   const done=state.saved[cid].filter(i=>state.visited.has(i)).length;
+   return `<div class="folder ${state.lastNew===cid?'new':''}" onclick="state.openFolder='${cid}';renderSaved()">
+    <div class="sticker">${citySVG(cid)}</div>
+    <div style="flex:1"><b>${ct.name}</b><span>${done} of ${n} visited</span>
+     <div class="prog"><i style="width:${Math.round(done/n*100)}%"></i></div></div>
+    <div class="count">${n}</div></div>`}).join('')}
+  </div>`;
+ state.lastNew=null;
+}
+function toggleVisit(id){state.visited.has(id)?state.visited.delete(id):state.visited.add(id);renderSaved()}
+
+/* ── MAP ── */
+function pinPos(i,n){const a=i*2.39996;const r=46+250*Math.sqrt((i+0.5)/n);
+ return [Math.min(360,Math.max(34,200+r*Math.cos(a)*0.62)),Math.min(600,Math.max(110,350+r*Math.sin(a)*0.92))]}
+function renderMap(){
+ const ct=cityOf(state.city);
+ $('#mapCity').textContent=ct.name;
+ $('#mapChips').innerHTML=`<button class="chip ${state.mapCat==='all'?'sel':''}" onclick="state.mapCat='all';renderMap()">All</button>`+
+  Object.entries(CATS).map(([k,c])=>`<button class="chip ${state.mapCat===k?'sel':''}" onclick="state.mapCat='${k}';renderMap()">${c.name}</button>`).join('');
+ const local=CAFES.filter(c=>c.city===state.city);
+ const streets=`<rect width="400" height="700" fill="#EDF1FB"/>
+  <g stroke="#fff" stroke-width="11" stroke-linecap="round" opacity=".95">
+   <path d="M0 100 H400M0 220 H400M0 340 H400M0 480 H400M0 590 H400M85 0 V700M195 0 V700M305 0 V700"/></g>
+  <g stroke="#fff" stroke-width="5" opacity=".7"><path d="M0 160 H400M0 410 H400M0 535 H400M45 0 V700M140 0 V700M250 0 V700M355 0 V700"/></g>
+  <path d="M-20 630 Q120 575 210 645 T 420 610 L420 720 H-20 Z" fill="#D5E0F8"/>
+  <rect x="100" y="235" width="80" height="88" rx="16" fill="#E9E3D2"/><rect x="315" y="110" width="66" height="76" rx="16" fill="#E9E3D2"/>`;
+ const pins=local.map((c,i)=>{
+  const [x,y]=pinPos(i,local.length);
+  const show=state.mapCat==='all'||c.c===state.mapCat;
+  const sv=isSaved(c.id);
+  return `<g class="pin" id="pin${c.id}" transform="translate(${x},${y})" opacity="${show?1:0.18}" onclick="tapPin(${c.id})">
+   <path d="M0 0C-13-15-20-24-20-34a20 20 0 1 1 40 0C20-24 13-15 0 0z" fill="${sv?'#fff':'#002A8D'}" stroke="#002A8D" stroke-width="${sv?3:0}"/>
+   <circle cx="0" cy="-34" r="${sv?7:5.5}" fill="${sv?'#002A8D':'#fff'}"/></g>`}).join('');
+ $('#mapSvg').innerHTML=`<svg viewBox="0 0 400 700" preserveAspectRatio="xMidYMid slice">${streets}${pins}</svg>`;
+ $('#mapCard').style.display='none';
+}
+function tapPin(id){
+ const c=CAFES.find(x=>x.id===id),dark=c.p===3||c.p===6;
+ const p=document.getElementById('pin'+id);p.classList.remove('bounce');void p.getBBox;p.classList.add('bounce');
+ const mc=$('#mapCard');mc.style.display='flex';
+ mc.innerHTML=`<div class="thumb p${c.p}">${photoImg(c,300)}<div class="doodle" style="color:${dark?'#fff':'var(--blue)'}">${doodleSVG(c.id)}</div></div>
+  <div><b>${c.n}</b><span>${c.h} · ${CATS[c.c].name}</span></div>
+  <button class="go" onclick="openDetail(${c.id})">View</button>`;
+}
+
+/* ── SEARCH / EXPLORE ── */
+function renderSearch(){
+ $('#scr-search').innerHTML=`
+  <div class="backrow" onclick="go('home')"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>Back</div>
+  <div class="kick">Explore</div>
+  <h2 class="disp h-screen">Find your<br>next cup</h2>
+  <div class="searchbox"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5"/></svg>
+   <input id="q" placeholder="City, café, neighborhood, or vibe…" oninput="doSearch(this.value)"></div>
+  <div class="chips">${QUICK.map(q=>`<button class="chip" onclick="$('#q').value='${q}';doSearch('${q}')">${q}</button>`).join('')}</div>
+  <div id="results"></div>`;
+ doSearch('');
+}
+function doSearch(q){
+ q=q.trim().toLowerCase();
+ if(!q){
+  $('#results').innerHTML=`<div class="sec"><div class="h-sec">Five curated cities</div><span class="badge">${CAFES.length} cafés</span></div>`+
+   CITY_LIST.map(ct=>`<div class="citycard" onclick="openCity('${ct.id}')">
+    <div class="cdoodle">${citySVG(ct.id)}</div>
+    <div><b>${ct.name}</b><span>${ct.hoods}</span></div>
+    <div class="n">${CAFES.filter(c=>c.city===ct.id).length} cafés</div></div>`).join('');
+  return;
+ }
+ const alias={"good for work":"great for work"};const qq=alias[q]||q;
+ const hits=CAFES.filter(c=>[c.n,c.h,c.m,cityOf(c.city).name,...c.t,CATS[c.c].name].join(' ').toLowerCase().includes(qq)).slice(0,14);
+ $('#results').innerHTML=hits.length
+  ?`<div class="sec"><div class="h-sec">Results</div><span class="badge">${hits.length}</span></div>`+hits.map(row).join('')
+  :`<div class="empty"><div class="doodle">${beanSVG()}</div><h3>No beans found</h3><p>Try a city, a neighborhood, or a vibe like “matcha” or “good for work”.</p></div>`;
+}
+
+/* ── boot ── */
+window._hbState=state;
+_initData();
+</script>
+</body>
+</html>
